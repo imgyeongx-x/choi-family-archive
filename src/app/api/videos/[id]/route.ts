@@ -14,7 +14,7 @@ function parseId(id: string): number | null {
 
 export async function GET(
   _req: Request,
-  ctx: { params: Promise<{ id: string }> } // ✅ string이 맞음
+  ctx: { params: Promise<{ id: string }> } 
 ) {
   const { id } = await ctx.params;
 
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  ctx: { params: Promise<{ id: string }> } // ✅ string
+  ctx: { params: Promise<{ id: string }> } 
 ) {
   const { id } = await ctx.params;
 

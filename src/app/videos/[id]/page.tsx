@@ -1,20 +1,23 @@
 import { notFound } from "next/navigation";
+import type { Video as PrismaVideo } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/videos/utils";
 
 type PageProps = {
-  params: Promise<{ id: string }>; // ✅ 항상 string
+  params: Promise<{ id: string }>;
 };
 
 export default async function VideoDetailPage({ params }: PageProps) {
   const { id } = await params;
 
   const idNum = Number(id);
-  if (!Number.isFinite(idNum)) return notFound(); // ✅ 숫자 아닌 경우 404
+  if (!Number.isFinite(idNum) || !Number.isInteger(idNum) || idNum <= 0) {
+    return notFound();
+  }
 
-  const video = await prisma.video.findUnique({
-    where: { id: idNum }, // ✅ number
+  const video: PrismaVideo | null = await prisma.video.findUnique({
+    where: { id: idNum },
   });
 
   if (!video) return notFound();
@@ -50,7 +53,7 @@ export default async function VideoDetailPage({ params }: PageProps) {
 
       {video.eventTags.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
-          {video.eventTags.map((t) => (
+          {video.eventTags.map((t: string) => (
             <span
               key={t}
               className="rounded-full border border-zinc-800 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400"
