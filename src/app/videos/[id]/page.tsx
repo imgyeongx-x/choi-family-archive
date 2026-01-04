@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import type { Video as PrismaVideo } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/videos/utils";
@@ -16,7 +15,7 @@ export default async function VideoDetailPage({ params }: PageProps) {
     return notFound();
   }
 
-  const video: PrismaVideo | null = await prisma.video.findUnique({
+  const video = await prisma.video.findUnique({
     where: { id: idNum },
   });
 
