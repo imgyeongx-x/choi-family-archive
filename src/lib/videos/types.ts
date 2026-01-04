@@ -9,7 +9,6 @@ export type Video = {
   eventTags: string[];
   durationSec?: number;
   featured?: boolean;
-  visibility: Visibility;
 };
 
 export type ViewMode = 'GRID' | 'LIST';

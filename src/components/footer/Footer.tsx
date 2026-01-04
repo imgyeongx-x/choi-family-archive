@@ -4,8 +4,8 @@ export default function ArchiveFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-10 border-t border-zinc-800 pt-6 text-xs text-zinc-500">
-      <div className="mt-4 flex flex-col gap-2 border-t border-zinc-800/60 pt-4">
+    <footer className="mt-10 pt-6 text-xs text-zinc-500">
+      <div className="mt-4 flex flex-col gap-2 border-t border-zinc-600 pt-4">
         <p className="tracking-[0.18em] text-zinc-400">
           DEVELOPED BY{" "}
           <a

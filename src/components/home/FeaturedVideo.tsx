@@ -20,9 +20,6 @@ export default function FeaturedVideo({ video, onClickSameYear }: Props) {
             <span className="text-xs text-zinc-400">
               {formatDate(video.shotAt)}
             </span>
-            <span className="text-xs text-zinc-500">
-              · {video.visibility === "private" ? "PRIVATE" : "UNLISTED"}
-            </span>
           </div>
 
           <h2 className="mb-2 text-2xl font-semibold tracking-tight md:text-3xl">
@@ -75,9 +72,7 @@ export default function FeaturedVideo({ video, onClickSameYear }: Props) {
             <span className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-1 text-xs text-zinc-200">
               {toMinSec(video.durationSec) ?? "—:—"}
             </span>
-            <span className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-1 text-xs text-zinc-300">
-              Video #{video.id.replace("video-", "")}
-            </span>
+            <span className="tracking-[0.18em]">VIDEO #{video.id}</span>
           </div>
         </div>
       </div>

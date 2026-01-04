@@ -1,0 +1,16 @@
+model Video {
+  id          Int      @id @default(autoincrement())
+  youtubeId   String
+  title       String
+  note        String?
+  shotAt      DateTime @db.Date
+  eventTags   String[]
+  durationSec Int?
+  featured    Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([shotAt])
+  @@index([featured])
+}

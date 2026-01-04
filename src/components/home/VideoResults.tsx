@@ -2,6 +2,7 @@
 
 import type { Video, ViewMode } from "@/lib/videos/types";
 import { formatDate, toMinSec } from "@/lib/videos/utils";
+import Link from "next/link";
 
 type Props = {
   videos: Video[];
@@ -13,7 +14,7 @@ export default function VideoResults({ videos, view }: Props) {
     return (
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {videos.map((v) => (
-          <a
+          <Link
             key={v.id}
             href={`/videos/${v.id}`}
             className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/20 shadow-sm transition hover:border-zinc-600"
@@ -38,13 +39,8 @@ export default function VideoResults({ videos, view }: Props) {
 
             <div className="p-4">
               <div className="mb-2 flex items-center gap-2 text-xs text-zinc-400">
-                <span className="tracking-[0.18em]">
-                  VIDEO #{v.id.replace("video-", "")}
-                </span>
+                <span className="tracking-[0.18em]">VIDEO #{v.id}</span>
                 <span className="text-zinc-600">·</span>
-                <span className="text-zinc-500">
-                  {v.visibility === "private" ? "PRIVATE" : "UNLISTED"}
-                </span>
               </div>
 
               <h3 className="mb-3 line-clamp-1 text-base font-semibold text-zinc-100">
@@ -62,7 +58,7 @@ export default function VideoResults({ videos, view }: Props) {
                 ))}
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </section>
     );
@@ -93,9 +89,6 @@ export default function VideoResults({ videos, view }: Props) {
               <span className="text-zinc-600">·</span>
               <span>{formatDate(v.shotAt)}</span>
               <span className="text-zinc-600">·</span>
-              <span className="text-zinc-500">
-                {v.visibility === "private" ? "PRIVATE" : "UNLISTED"}
-              </span>
               <span className="text-zinc-600">·</span>
               <span>{toMinSec(v.durationSec) ?? "—:—"}</span>
             </div>

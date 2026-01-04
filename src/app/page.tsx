@@ -1,34 +1,54 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import FeaturedVideo from "@/components/home/FeaturedVideo";
 import FilterBar from "@/components/home/FilterBar";
 import VideoResults from "@/components/home/VideoResults";
 
-import { VIDEOS } from "@/lib/videos/mock";
 import type { SortMode, Video, ViewMode } from "@/lib/videos/types";
 import { yearOf } from "@/lib/videos/utils";
 
 export default function Page() {
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const ac = new AbortController();
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/videos", {
+          cache: "no-store",
+          signal: ac.signal,
+        });
+        const json = (await res.json()) as Video[];
+        setVideos(json);
+      } finally {
+        setLoading(false);
+      }
+    })();
+    return () => ac.abort();
+  }, []);
+
   const years = useMemo(() => {
-    const ys = Array.from(new Set(VIDEOS.map((v) => yearOf(v.shotAt))));
+    const ys = Array.from(new Set(videos.map((v) => yearOf(v.shotAt))));
     ys.sort((a, b) => b - a);
     return ys;
-  }, []);
+  }, [videos]);
 
   const tagPool = useMemo(() => {
     const set = new Set<string>();
-    VIDEOS.forEach((v) => v.eventTags.forEach((t) => set.add(t)));
+    videos.forEach((v) => v.eventTags.forEach((t) => set.add(t)));
     return Array.from(set);
-  }, []);
+  }, [videos]);
 
-  const featured: Video | undefined = useMemo(
-    () => VIDEOS.find((v) => v.featured) ?? VIDEOS[0],
-    []
+  const featured = useMemo(
+    () => videos.find((v) => v.featured) ?? videos[0],
+    [videos]
   );
 
-  const [q, setQ] = useState<string>("");
+  const [q, setQ] = useState("");
   const [year, setYear] = useState<number | "ALL">("ALL");
   const [tag, setTag] = useState<string | "ALL">("ALL");
   const [sort, setSort] = useState<SortMode>("NEW");
@@ -37,7 +57,7 @@ export default function Page() {
   const filtered = useMemo(() => {
     const keyword = q.trim().toLowerCase();
 
-    const base = VIDEOS.filter((v) => {
+    const base = videos.filter((v) => {
       const matchesYear = year === "ALL" ? true : yearOf(v.shotAt) === year;
       const matchesTag = tag === "ALL" ? true : v.eventTags.includes(tag);
 
@@ -56,10 +76,16 @@ export default function Page() {
     });
 
     return base;
-  }, [q, year, tag, sort]);
+  }, [videos, q, year, tag, sort]);
 
   return (
     <div className="pt-6">
+      {loading && (
+        <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-4 text-sm text-zinc-300">
+          불러오는 중...
+        </div>
+      )}
+
       {featured && (
         <FeaturedVideo video={featured} onClickSameYear={(y) => setYear(y)} />
       )}
