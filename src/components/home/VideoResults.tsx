@@ -83,12 +83,9 @@ export default function VideoResults({ videos, view }: Props) {
 
           <div className="min-w-0 flex-1">
             <div className="mb-1 flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-              <span className="tracking-[0.18em]">
-                VIDEO #{v.id.replace("video-", "")}
-              </span>
+              <span className="tracking-[0.18em]">VIDEO #{v.id}</span>
               <span className="text-zinc-600">·</span>
               <span>{formatDate(v.shotAt)}</span>
-              <span className="text-zinc-600">·</span>
               <span className="text-zinc-600">·</span>
               <span>{toMinSec(v.durationSec) ?? "—:—"}</span>
             </div>

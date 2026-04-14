@@ -13,9 +13,11 @@ export function yearOf(iso: string): number {
   return new Date(iso).getFullYear();
 }
 
-export function toMinSec(sec?: number): string | null {
-  if (!sec || sec <= 0) return null;
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${m}:${String(s).padStart(2, '0')}`;
+export function toMinSec(value: number | null | undefined): string | undefined {
+  if (value == null) return undefined;
+
+  const min = Math.floor(value / 60);
+  const sec = value % 60;
+
+  return `${min}:${String(sec).padStart(2, "0")}`;
 }
