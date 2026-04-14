@@ -1,14 +1,14 @@
 export type Visibility = 'unlisted' | 'private';
 
 export type Video = {
-  id: string;
+  id: number;
   youtubeId: string;
   title: string;
-  note?: string;
-  shotAt: string; // ISO date
+  note: string | null;
+  shotAt: string;
   eventTags: string[];
-  durationSec?: number;
-  featured?: boolean;
+  durationSec: number | null;
+  featured: boolean;
 };
 
 export type ViewMode = 'GRID' | 'LIST';

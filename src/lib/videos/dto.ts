@@ -1,17 +1,7 @@
 import type { Video as PrismaVideo } from "@prisma/client";
+import type { Video } from "@/lib/videos/types";
 
-export type VideoDTO = {
-  id: number;
-  youtubeId: string;
-  title: string;
-  note: string | null;
-  shotAt: string; // ISO string
-  eventTags: string[];
-  durationSec: number | null;
-  featured: boolean;
-};
-
-export function toVideoDTO(v: PrismaVideo): VideoDTO {
+export function toVideoDTO(v: PrismaVideo): Video {
   return {
     id: v.id,
     youtubeId: v.youtubeId,
