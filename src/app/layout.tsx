@@ -31,8 +31,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-dvh bg-zinc-950 text-zinc-100 selection:bg-zinc-100 selection:text-zinc-950">
-          <div className="pointer-events-none fixed inset-0 opacity-[0.10] mix-blend-overlay [background-image:url('/grain.png')] bg-repeat" />
-
           <div className="mx-auto w-full max-w-6xl px-4 pb-16">
             <ArchiveHeader />
 

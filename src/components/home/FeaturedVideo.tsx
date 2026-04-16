@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { Video } from "@/lib/videos/types";
 import { formatDate, toMinSec, yearOf } from "@/lib/videos/utils";
 
@@ -61,11 +62,13 @@ export default function FeaturedVideo({ video, onClickSameYear }: Props) {
         </div>
 
         <div className="relative min-h-[220px] border-t border-zinc-800 md:min-h-full md:border-l md:border-t-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-90"
-            style={{
-              backgroundImage: `url(https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg)`,
-            }}
+          <Image
+            src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+            alt={video.title}
+            fill
+            priority
+            sizes="(min-width: 768px) 45vw, 100vw"
+            className="object-cover opacity-90"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent" />
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">

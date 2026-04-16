@@ -1,5 +1,4 @@
-"use client";
-
+import Image from "next/image";
 import type { Video, ViewMode } from "@/lib/videos/types";
 import { formatDate, toMinSec } from "@/lib/videos/utils";
 import Link from "next/link";
@@ -20,11 +19,12 @@ export default function VideoResults({ videos, view }: Props) {
             className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/20 shadow-sm transition hover:border-zinc-600"
           >
             <div className="relative aspect-[16/10] overflow-hidden border-b border-zinc-800">
-              <img
+              <Image
                 src={`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`}
                 alt={v.title}
-                className="h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.02]"
-                loading="lazy"
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover opacity-90 transition duration-300 group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/10 to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
@@ -73,11 +73,12 @@ export default function VideoResults({ videos, view }: Props) {
           className="flex gap-4 bg-zinc-900/20 p-4 transition hover:bg-zinc-900/35"
         >
           <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-xl border border-zinc-800">
-            <img
+            <Image
               src={`https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg`}
               alt={v.title}
-              className="h-full w-full object-cover opacity-90"
-              loading="lazy"
+              fill
+              sizes="8rem"
+              className="object-cover opacity-90"
             />
           </div>
 

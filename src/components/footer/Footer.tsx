@@ -1,5 +1,3 @@
-"use client";
-
 export default function ArchiveFooter() {
   const year = new Date().getFullYear();
 
